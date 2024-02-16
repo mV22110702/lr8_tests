@@ -32,6 +32,7 @@ describe('Main functionality', async function () {
     this.timeout(0)
     const options = new chrome.Options();
     const DOC_NAME = ''.concat(config.get('document.name'),'_',Math.round(Math.random()*1e6).toString());
+    // const DOC_NAME = 'sel_lr8_596203'
     options.addArguments('start-maximized');
     options.setChromeBinaryPath('C:\\browserdrivers\\chrome-win64\\chrome.exe')
 
@@ -118,14 +119,18 @@ describe('Main functionality', async function () {
             assert.exists(confirmationDialog)
         }
         {
-            await driver.navigate().to('https://drive.google.com/')
+            await driver.navigate().to('https://drive.google.com/drive/home')
 
             const trashBtn = await driver.wait(until.elementLocated(By.id('nt:DriveDocli')))
             await waitUntilClickable(driver, trashBtn);
             await trashBtn.click();
 
-            const gridCell = await driver.wait(until.elementLocated(By.xpath('//*[@id=":24"]/div/c-wiz/c-wiz/div[1]/div/c-wiz/div[2]/c-wiz/div[1]/c-wiz/c-wiz/div/c-wiz/div/div/div/div[2]/div/div')))
+            const gridCell = await driver.wait(until.elementLocated(By.xpath(`//div[contains(text(), '${DOC_NAME}')]`)))
             assert.deepStrictEqual(await gridCell.getText(), DOC_NAME)
+            await driver.actions().contextClick(gridCell).perform()
+            await driver.sleep(2000)
+            await driver.actions().keyDown(Key.ENTER).keyUp(Key.ENTER).perform()
+            await driver.sleep(1000);
         }
     })
 
