@@ -13,12 +13,14 @@
     "@types/chai": "^4.3.11",
     "chai": "4.0.2",
     "config": "^3.3.11",
+    "copy-paste": "^1.5.3",
     "selenium-webdriver": "^4.17.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/assert": "^1.5.10",
     "@types/config": "^3.3.3",
+    "@types/copy-paste": "^1.1.33",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.16",
     "@types/selenium-webdriver": "^4.1.21",
