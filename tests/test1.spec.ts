@@ -28,7 +28,7 @@ const logInDocs = async function (driver: WebDriver) {
         await btnNext.click()
     }
 }
-describe('Auth functionality', async function () {
+describe('Main functionality', async function () {
     this.timeout(0)
     const options = new chrome.Options();
     const DOC_NAME = ''.concat(config.get('document.name'),'_',Math.round(Math.random()*1e6).toString());
@@ -54,7 +54,7 @@ describe('Auth functionality', async function () {
         await driver.quit()
     })
 
-    it.skip('Login with valid credentials', async function () {
+    it('Login with valid credentials', async function () {
 
         await logInDocs(driver);
         const profileLinkContainer = await driver.wait(until.elementLocated(By.xpath('//*[@id="gb"]/div[2]/div[3]/div[1]/div[2]')), 10e3)
@@ -62,7 +62,7 @@ describe('Auth functionality', async function () {
         assert.match(await profileLink.getAttribute('aria-label'), /Вайсов/, 'Profile link not found');
     })
 
-    it.skip('Create document as a log-ined user', async function () {
+    it('Create document as a log-ined user', async function () {
         await logInDocs(driver);
         {
             const newDocClickableDiv = await driver.wait(until.elementLocated(By.css('#\\:20 > div.docs-homescreen-templates-templateview-preview.docs-homescreen-templates-templateview-preview-showcase')))
@@ -84,7 +84,7 @@ describe('Auth functionality', async function () {
         assert.exists(await driver.wait(until.elementLocated(By.xpath(`//*[contains(@class, 'docs-homescreen-grid-item-title') and @title='${DOC_NAME}']`))))
     })
 
-    it.skip('Search document by name', async function () {
+    it('Search document by name', async function () {
         await logInDocs(driver);
         {
             const input = await driver.wait(until.elementLocated(By.xpath('//*[@id="gb"]/div[2]/div[2]/div/form/div/input')))
@@ -99,7 +99,7 @@ describe('Auth functionality', async function () {
         }
     })
 
-    it.skip('Delete a document', async function () {
+    it('Delete a document', async function () {
         await logInDocs(driver);
         {
             const docCard = await driver.wait(until.elementLocated(By.xpath(`//*[contains(@class, 'docs-homescreen-grid-item-title') and @title='${DOC_NAME}']`)))
